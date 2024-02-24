@@ -43,17 +43,17 @@ router.post('/createuser', [
         }
         const authToken = jwt.sign(data, Secret_key);
         // console.log(authToken);
-        return res.json({ authToken });
+        res.json({ authToken });
     } catch (error) {
         console.error(error.message);
-        return res.status(500).send("Internal Server Error");
+        res.status(500).send("Internal Server Error");
     }
 });
 
 // ROUTE 2: authenticate a user using POST (/routes/auth/login)
 router.post('/login', [
-    body('email',"Enter a valid Email").isEmail(),
-    body('password',"Enter a valid password of 8 characters").isLength({ min: 8 })
+    body('email', "Enter a valid Email").isEmail(),
+    body('password', "Enter a valid password of 8 characters").isLength({ min: 8 })
 ], async (req, res) => {
     const result = validationResult(req);
     if (!result.isEmpty()) {
@@ -78,18 +78,18 @@ router.post('/login', [
             }
         }
         const authToken = jwt.sign(data, Secret_key);
-        return res.json({ authToken });
+        res.json({ authToken });
     } catch (error) {
         console.error(error.message);
-        return res.status(500).send("Some error occured");
+        res.status(500).send("Some error occured");
     }
 })
 
 // ROUTE 3: Get details of user through jwt-tokens (Login required)
 router.post('/getuser', fetchuser, async (req, res) => {
     try {
-        userId = req.user.Id;
-        const user = await User.findOne({ userId }).select("-password");
+        const userId = req.user.Id;
+        const user = await User.findById(userId).select("-password");
         res.send(user);
     } catch (error) {
         console.error(error.message);
