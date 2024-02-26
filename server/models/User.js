@@ -15,6 +15,11 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+    points: {
+        type: Number,
+        default: 250,
+        required: true
+    },
     date: {
         type: Date,
         default: Date.now

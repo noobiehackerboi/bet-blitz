@@ -12,7 +12,7 @@ const Secret_key = process.env.SECRET_KEY;
 router.post('/createuser', [
     body('email', 'Enter a valid Email').isEmail(),
     body('password', 'Enter a valid Password of 8 characters').isLength({ min: 8 }),
-    body('name', 'Enter a valid Name (Minimum 3 characters)').notEmpty().isLength({ min: 3 }).isString()
+    body('name', 'Enter a valid Name (Minimum 3 characters)').isLength({ min: 3 }).isString()
 ], async (req, res) => {
 
     const result = validationResult(req);
@@ -88,9 +88,9 @@ router.post('/login', [
 // ROUTE 3: Get details of user through jwt-tokens (Login required)
 router.post('/getuser', fetchuser, async (req, res) => {
     try {
-        const userId = req.user.Id;
+        const userId = req.user.id;
         const user = await User.findById(userId).select("-password");
-        res.send(user);
+        res.json(user);
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Some error occured");
