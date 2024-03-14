@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose;
 
-const UserSchema = new Schema({
-    email: {
+const ModSchema = new Schema({
+    userId: {
         type: String,
         required: true,
         unique: true // Ensures uniqueness of email
@@ -11,18 +11,10 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    name: {
-        type: String,
-        required: true
-    },
-    points: {
-        type: Number,
-        default: 250 // Points on creating User
-    },
     createdAt: {
         type: Date,
         default: Date.now
     }
 });
-const User = mongoose.model('user', UserSchema)
-module.exports = User;
+const Mod = mongoose.model('mod', ModSchema)
+module.exports = Mod;

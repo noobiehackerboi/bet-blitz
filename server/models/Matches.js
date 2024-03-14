@@ -2,6 +2,14 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose;
 
 const MatchSchema = new Schema({
+    league: {
+        type: String,
+        required: true
+    },
+    date: { // match date
+        type: String,
+        required: true
+    },
     team1: {
         type: String,
         required: true
@@ -11,12 +19,17 @@ const MatchSchema = new Schema({
         required: true
     },
     venue: {
-        type: String
+        type: String,
+        required: true
     },
-    matchdate: {
+    result: { // winner of the match
+        type: String,
+        default: null // default null To be updated later
+    },
+    createdAt: {
         type: Date,
-        default: Date.now
+
     }
 });
-const Match = mongoose.model('match', UserSchema)
+const Match = mongoose.model('match', MatchSchema)
 module.exports = Match;

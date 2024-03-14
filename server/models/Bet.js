@@ -4,26 +4,31 @@ const { Schema } = mongoose;
 const BetSchema = new Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user',
+        ref: 'user', // Reference to the User Model
         required: true,
     },
     matchId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'match',
+        ref: 'match', // Reference to the Match Model
         required: true
     },
-    pointsbet: {
+    amount: { // number of points bet
         type: Number,
         required: true
     },
-    teamselected: {
+    netChange: { // points change (+250,-100,etc)
         type: Number,
+        default: 0,
         required: true
     },
-    date: {
+    prediction: { // user's prediction
+        type: String,
+        required: true
+    },
+    createdAt: {
         type: Date,
         default: Date.now
     }
 });
-const Bet = mongoose.model('bet', UserSchema)
+const Bet = mongoose.model('bet', BetSchema)
 module.exports = Bet;
